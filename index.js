@@ -130,8 +130,6 @@ app.post('/clinica', async (req, res) => {
 
   const test = await pg(clinica, user, pass)
 
-  console.log(user, pass)
-
 
   if (test[0].clinica_name !== null) {
     res.send(test)
@@ -139,6 +137,13 @@ app.post('/clinica', async (req, res) => {
   } else {
     res.send(false)
   }
+
+})
+
+app.post('/clinical/info', (req, res) => {
+
+  const { clinica, address, cliName } = req.body
+
 
 })
 
