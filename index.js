@@ -140,10 +140,16 @@ app.post('/clinica', async (req, res) => {
 
 })
 
-app.post('/clinical/info', (req, res) => {
+const INSERT = `
+  insert into clinica(clinica_name, clinica_address, clinica_phone_number, clinica_user, clinica_password) values
+  ($1, $2, $3, $4, $5) returning;
+`
 
-  const { clinica, address, cliName } = req.body
+app.post('/clinical/info', async (req, res) => {
 
+  const { clinica, address, cliName, user, pass } = req.body
+
+  res.send(await pg(INSERT, clinica, address, cliName, user, pass))
 
 })
 

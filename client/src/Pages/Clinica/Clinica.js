@@ -42,7 +42,7 @@ function Clinica() {
               'Content-type': 'application/json'
             },
             body: JSON.stringify({
-              clinica, address, cliName
+              user, pass, clinica, address, cliName
             })
           })
           const json = await res.json()
@@ -52,7 +52,7 @@ function Clinica() {
         setSubmit(false)
       }
 
-  }, [clinica, address, cliName, submit])
+  }, [clinica, address, cliName, submit, user, pass])
 
 
   console.log(clinica, address, cliName)
