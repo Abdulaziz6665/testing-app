@@ -25,5 +25,23 @@ select
   cm.clinica_message_cost
 from clinica_message as cm
 join med_services as ms on cm.m_service_id = ms.m_service_id and ms.m_service_name = 'mrt'
-left join sub_med_services as sms on cm.sub_m_service_id = sms.sub_m_service_id and sms.sub_m_service_name = 'Dopolnitelnie uslugi'
+join sub_med_services as sms on cm.sub_m_service_id = sms.sub_m_service_id and sms.sub_m_service_id = '9'
 join clinica as c on cm.clinica_id = c.clinica_id;
+
+select
+  ms.m_service_name,
+  sms.sub_m_service_name,
+  c.clinica_name,
+  cm.clinica_message_text,
+  cm.clinica_message_cost
+from clinica_message as cm
+join med_services as ms on cm.m_service_id = ms.m_service_id and ms.m_service_name = 'mrt'
+left join sub_med_services as sms on cm.sub_m_service_id = sms.sub_m_service_id
+join clinica as c on cm.clinica_id = c.clinica_id;
+
+
+select 
+  clinica_user,
+  clinica_password
+from clinica
+where clinica_user = 'alish' and clinica_password = '6665';

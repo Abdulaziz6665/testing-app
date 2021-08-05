@@ -47,6 +47,10 @@ function Home (props) {
         <div className='main2'>
             <Comp dataa={props.match.params}/>
         </div>
+        <Link to='/login'>
+          <h3>login</h3>
+        </Link>
+
       </div>
     </>
   )

@@ -53,10 +53,10 @@ insert into sub_med_services(sub_m_service_name, m_service_id) values
 ('Mammologicheskogo obsledivaniya', 13),
 ('Prochie isledovaniya', 13);
 
-insert into clinica(clinica_name, clinica_address, clinica_phone_number) values
-('Shox med', 'Mirobod', '8888'),
-('Akfa Med Line', 'Beruniy', '1111'),
-('Darmon service', 'Chilonzor', '5555');
+insert into clinica(clinica_name, clinica_address, clinica_phone_number, clinica_user, clinica_password) values
+('Shox med', 'Mirobod', '8888', 'alish', '6665'),
+('Akfa Med Line', 'Beruniy', '1111', 'karim', '5566'),
+('Darmon service', 'Chilonzor', '5555', 'said', '6666');
 
 insert into clinica_message(clinica_message_text, clinica_message_cost, m_service_id, clinica_id, sub_m_service_id) values
 ('Bizlarda MRT zo''r ishlaydi', '80 000 so''m', 1, 1, 9),
@@ -65,3 +65,9 @@ insert into clinica_message(clinica_message_text, clinica_message_cost, m_servic
 
 insert into clinica_message(clinica_message_text, clinica_message_cost, m_service_id, clinica_id, sub_m_service_id) values
 ('Homiladorlar uchun zararsiz UZI xizmati', '95 000 so''m', 13, 2, 25);
+
+insert into clinica_message(clinica_message_text, clinica_message_cost, m_service_id, clinica_id, sub_m_service_id) values
+('Homiladorlik paytida mrt bizda zararsiz', '120 000 so''m', 1, 3, 5);
+
+insert into clinica(clinica_user, clinica_password) values
+('ali', '8888');
