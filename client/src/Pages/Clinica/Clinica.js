@@ -5,6 +5,10 @@ function Clinica() {
   const { user, pass } = JSON.parse(localStorage.getItem('data'))
   const [data, setData] = useState()
 
+  const [clinica, setClinica] = useState()
+  const [address, setAddress] = useState()
+  const [cliName, setCliname] = useState()
+
   useEffect(() => {
 
       ;(async () => {
@@ -25,6 +29,28 @@ function Clinica() {
 
   }, [user, pass])
 
+  useEffect(() => {
+
+      ;(async () => {
+
+        const res = await fetch('http://localhost:5000/clinica', {
+          method: 'post',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            
+          })
+        })
+        const json = await res.json()
+        
+        setData(json)
+      })()
+
+  }, [])
+
+
+
 
   return(
     <>
@@ -32,7 +58,7 @@ function Clinica() {
         <div>
         <form>
           <input type="text" name='clinica' autoComplete='off' required />
-          <input type="text" name='cli-name' autoComplete='off' required />
+          <input type="text" name='cli-address' autoComplete='off' required />
           <input type="text" name='cli-phone' autoComplete='off' required />
         </form>
         <Link to='/'>
