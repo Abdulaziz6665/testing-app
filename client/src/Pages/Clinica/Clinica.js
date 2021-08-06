@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 
 function Clinica() {
   const { user, pass } = JSON.parse(localStorage.getItem('data'))
-  const [data, setData] = useState()
+  const [data, setData] = useState([])
+  const [medService, setMedService] = useState([])
   const [submit, setSubmit] = useState()
 
   const [clinica, setClinica] = useState()
@@ -25,7 +26,8 @@ function Clinica() {
         })
         const json = await res.json()
         
-        setData(json)
+          setData([...json[0]])
+          setMedService([...json[1]])
       })()
 
   }, [user, pass])
@@ -46,18 +48,15 @@ function Clinica() {
             })
           })
           const json = await res.json()
+          setData([...json])
           
-          setData(json)
         })()
         setSubmit(false)
       }
 
   }, [clinica, address, cliName, submit, user, pass])
 
-
-  console.log(clinica, address, cliName)
-
-
+  console.log(medService)
   return(
     <>
       {!data && (
@@ -91,7 +90,11 @@ function Clinica() {
 
           <div>
             <form>
-
+              
+              <label htmlFor="t_">enter text</label>
+              <textarea id='t_' name="t_area" cols="50" rows="10"></textarea>
+              <input type="text" name='text' autoComplete='off' required/>
+              <button>press</button>
             </form>
           </div>
           <Link to='/'>

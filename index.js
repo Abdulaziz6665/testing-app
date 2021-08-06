@@ -132,7 +132,7 @@ app.post('/clinica', async (req, res) => {
 
 
   if (test[0].clinica_name !== null) {
-    res.send(test)
+    res.send([test, await pg(QUERY)])
 
   } else {
     res.send(false)
@@ -140,16 +140,29 @@ app.post('/clinica', async (req, res) => {
 
 })
 
-const INSERT = `
-  insert into clinica(clinica_name, clinica_address, clinica_phone_number, clinica_user, clinica_password) values
-  ($1, $2, $3, $4, $5) returning;
+const SELECT = `
+  select
+    clinica_id
+  from
+    clinica
+  where clinica_user = $1;
+`
+
+const UPDATE = `
+  update clinica set clinica_name = $1, clinica_address = $2, clinica_phone_number = $3 where clinica_id = $4 returning * ;
 `
 
 app.post('/clinical/info', async (req, res) => {
 
-  const { clinica, address, cliName, user, pass } = req.body
+  const { clinica, address, cliName, user } = req.body
+  const cli_id = await pg(SELECT, user)
 
-  res.send(await pg(INSERT, clinica, address, cliName, user, pass))
+  if (cli_id.length) {
+    res.send(await pg(UPDATE, clinica, address, cliName, cli_id[0].clinica_id))
+  } else {
+    console.log('error')
+  }
+
 
 })
 
