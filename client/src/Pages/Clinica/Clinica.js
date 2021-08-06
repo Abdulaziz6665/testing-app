@@ -4,8 +4,16 @@ import { Link } from 'react-router-dom'
 function Clinica() {
   const { user, pass } = JSON.parse(localStorage.getItem('data'))
   const [data, setData] = useState([])
+  const [subData, setSubData] = useState([])
+
+
   const [medService, setMedService] = useState([])
-  const [submit, setSubmit] = useState()
+  const [submit, setSubmit] = useState(false)
+
+
+  const [select, setSelect] = useState()
+  const [text, setText] = useState()
+  const [cost, setCost] = useState()
 
   const [clinica, setClinica] = useState()
   const [address, setAddress] = useState()
@@ -28,6 +36,7 @@ function Clinica() {
         
           setData([...json[0]])
           setMedService([...json[1]])
+          setSubData([...json[2]])
       })()
 
   }, [user, pass])
@@ -56,7 +65,9 @@ function Clinica() {
 
   }, [clinica, address, cliName, submit, user, pass])
 
-  console.log(medService)
+
+  console.log(subData, medService)
+
   return(
     <>
       {!data && (
@@ -65,9 +76,9 @@ function Clinica() {
           e.preventDefault()
           setSubmit(true)
         }}>
-          <input type="text" name='clinica' autoComplete='off' required onKeyUp={(e) => setClinica(e.target.value)} />
-          <input type="text" name='cli-address' autoComplete='off' required onKeyUp={(e) => setAddress(e.target.value)} />
-          <input type="text" name='cli-phone' autoComplete='off' required onKeyUp={(e) => setCliName(e.target.value)} />
+          <input type="text" name='clinica' autoComplete='off' placeholder='clinica name' required onKeyUp={(e) => setClinica(e.target.value)} />
+          <input type="text" name='cli-address' autoComplete='off' placeholder='clinica address' required onKeyUp={(e) => setAddress(e.target.value)} />
+          <input type="text" name='cli-phone' autoComplete='off' placeholder='clinica phone number' required onKeyUp={(e) => setCliName(e.target.value)} />
           <button>press</button>
         </form>
         <Link to='/'>
@@ -89,11 +100,25 @@ function Clinica() {
           <h1>Add service</h1>
 
           <div>
-            <form>
-              
+            <form onSubmit={(e) => {
+              e.preventDefault()
+            }}>
+              <select defaultValue='Med services' name="med_ser" onChange={(e) => setSelect(e.target.value)}>
+                <option value={null}>Select service</option>
+                {medService && medService.map((med, i) => (
+                  <option key={i} value={med.m_service_name}>{med.m_service_name}</option>
+                ))}
+              </select>
+
+              <select>
+                {select && subData.map((elem, i) => (
+                  select === elem.m_service_name ? <option value={elem.sub_m_service_name} key={i}>{elem.sub_m_service_name}</option> : null
+                ))}
+              </select>
+
               <label htmlFor="t_">enter text</label>
-              <textarea id='t_' name="t_area" cols="50" rows="10"></textarea>
-              <input type="text" name='text' autoComplete='off' required/>
+              <textarea id='t_' name="t_area" cols="50" rows="10" placeholder='enter description' onChange={(e) => setText(e.target.value)}></textarea>
+              <input type="text" name='text' autoComplete='off' placeholder='enter cost service' onKeyUp={(e) => setCost(e.target.value)} required/>
               <button>press</button>
             </form>
           </div>

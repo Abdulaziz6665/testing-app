@@ -2,7 +2,7 @@ select
   med.m_service_name,
   sub.sub_m_service_name
 from sub_med_services as sub
-join med_services as med on sub.m_service_id = med.m_service_id and med.m_service_name = 'МРТ';
+join med_services as med on sub.m_service_id = med.m_service_id and med.m_service_name = 'mrt';
 
 
 select

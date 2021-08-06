@@ -128,11 +128,11 @@ app.post('/clinica', async (req, res) => {
 
   const { user, pass } = req.body
 
-  const test = await pg(clinica, user, pass)
+  const testt = await pg(clinica, user, pass)
 
 
   if (test[0].clinica_name !== null) {
-    res.send([test, await pg(QUERY)])
+    res.send([testt, await pg(QUERY), await pg(test)])
 
   } else {
     res.send(false)
